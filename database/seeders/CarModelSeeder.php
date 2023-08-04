@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\CarModel;
 use Illuminate\Database\Seeder;
 
 class CarModelSeeder extends Seeder
@@ -13,6 +14,6 @@ class CarModelSeeder extends Seeder
      */
     public function run()
     {
-        //
+        CarModel::factory(10)->create();
     }
 }

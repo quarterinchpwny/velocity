@@ -14,7 +14,8 @@ class VehicleCategoryFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'code' => 'TEST',
+            'category_name' => $this->faker->word(),
         ];
     }
 }

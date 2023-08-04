@@ -14,7 +14,8 @@ class BookingStatusFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'code' => $this->faker->randomDigit(),
+            'description' => $this->faker->text(),
         ];
     }
 }

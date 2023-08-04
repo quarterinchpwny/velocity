@@ -15,10 +15,23 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name(),
+            'first_name' =>  $this->faker->word(),
+            'last_name' => $this->faker->word(),
+            'user_name' => $this->faker->word(),
+            'phone_number' => $this->faker->unique()->randomDigit(),
+
+            'company_name' => $this->faker->word(),
+            'gender' => $this->faker->word(),
+            'address' => $this->faker->word(),
+            'city' =>   $this->faker->word(),
+            'country' => $this->faker->word(),
+
+
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password_confirmation' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            'user_type' => 'admin',
             'remember_token' => Str::random(10),
         ];
     }

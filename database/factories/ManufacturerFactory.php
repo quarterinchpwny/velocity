@@ -14,7 +14,9 @@ class ManufacturerFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'code' => $this->faker->word(),
+            'manufacturer_name' => $this->faker->word(),
+            'manufacturer_details' => $this->faker->sentence(),
         ];
     }
 }

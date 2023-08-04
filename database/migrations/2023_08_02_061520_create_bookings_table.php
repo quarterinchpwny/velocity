@@ -17,8 +17,8 @@ class CreateBookingsTable extends Migration
             $table->id();
             $table->char('status_code');
             $table->foreign('status_code')->references('code')->on('booking_statuses');
-            $table->unsignedBigInteger('customer_id');
-            $table->foreign('customer_id')->references('id')->on('customers');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->char('vehicle_code');
             $table->foreign('vehicle_code')->references('code')->on('vehicles');
             $table->date('start_date');

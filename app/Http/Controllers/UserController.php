@@ -39,6 +39,7 @@ class UserController extends Controller
     {
 
         $payload = $request->all();
+
         return response()->json(['data' => $this->userRepository->createUser($payload)], Response::HTTP_CREATED);
     }
 
@@ -51,7 +52,8 @@ class UserController extends Controller
     public function show(Request $request)
     {
 
-        $payload = $request->only(['id']);
+        $payload = $request->route('user');
+
         return response()->json(['data' => $this->userRepository->showUser($payload)], 200);
     }
 
