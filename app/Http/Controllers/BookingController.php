@@ -25,7 +25,7 @@ class BookingController extends Controller
      */
     public function index()
     {
-        return response()->json(['data' => $this->bookingRepository->allBookings()]);
+        return response()->json(['data' => $this->bookingRepository->allBookings()], 200);
     }
 
     /**
@@ -49,7 +49,7 @@ class BookingController extends Controller
     public function show(Request $request)
     {
         $payload = $request->ony(['id']);
-        return response()->json(['data' => $this->bookingRepository->showBooking($payload)]);
+        return response()->json(['data' => $this->bookingRepository->showBooking($payload)], 200);
     }
 
 
@@ -65,7 +65,7 @@ class BookingController extends Controller
     {
         $payload = $request->all();
         $id = $payload(['id']);
-        return response()->json(['data' => $this->bookingRepository->updateBooking($payload, $id)]);
+        return response()->json(['data' => $this->bookingRepository->updateBooking($payload, $id)], 200);
     }
 
     /**

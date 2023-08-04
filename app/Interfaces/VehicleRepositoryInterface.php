@@ -6,7 +6,7 @@ interface VehicleRepositoryInterface
 {
     public function allVehicles();
     public function createVehicle(array $data);
-    public function updateVehicle(array $data, $code);
-    public function deleteVehicle($code);
-    public function showVehicle($code);
+    public function updateVehicle(array $data, $id);
+    public function deleteVehicle($id);
+    public function showVehicle($id);
 }

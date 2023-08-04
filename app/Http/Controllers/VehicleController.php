@@ -2,12 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+
+use App\Interfaces\VehicleRepositoryInterface;
+
 use App\Models\Vehicle;
 use App\Http\Requests\StoreVehicleRequest;
 use App\Http\Requests\UpdateVehicleRequest;
 
 class VehicleController extends Controller
 {
+    private VehicleRepositoryInterface $vehicleRepository;
+
+    public function __construct(VehicleRepositoryInterface $vehicleRepository)
+    {
+        $this->vehicleRepository = $vehicleRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,17 +27,7 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response()->json(['data' => $this->vehicleRepository->allVehicles()], 200);
     }
 
     /**
@@ -36,7 +38,8 @@ class VehicleController extends Controller
      */
     public function store(StoreVehicleRequest $request)
     {
-        //
+        $payload = $request->all();
+        return response()->json(['data' => $this->vehicleRepository->createVehicle($payload)], Response::HTTP_CREATED);
     }
 
     /**
@@ -45,20 +48,10 @@ class VehicleController extends Controller
      * @param  \App\Models\Vehicle  $vehicle
      * @return \Illuminate\Http\Response
      */
-    public function show(Vehicle $vehicle)
+    public function show(Request $request)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Vehicle  $vehicle
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Vehicle $vehicle)
-    {
-        //
+        $payload = $request->only(['id']);
+        return response()->json(['data' => $this->vehicleRepository->showVehicle($payload)], 200);
     }
 
     /**
@@ -68,9 +61,11 @@ class VehicleController extends Controller
      * @param  \App\Models\Vehicle  $vehicle
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateVehicleRequest $request, Vehicle $vehicle)
+    public function update(UpdateVehicleRequest $request)
     {
-        //
+        $payload = $request->all();
+        $id = $payload['id'];
+        return response()->json(['data' => $this->vehicleRepository->updateVehicle($payload, $id)], 200);
     }
 
     /**
@@ -79,8 +74,9 @@ class VehicleController extends Controller
      * @param  \App\Models\Vehicle  $vehicle
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Vehicle $vehicle)
+    public function destroy(Request $request)
     {
-        //
+        $payload = $request->only(['id']);
+        return response()->json(['data' => $this->vehicleRepository->deleteVehicle($payload)], 200);
     }
 }

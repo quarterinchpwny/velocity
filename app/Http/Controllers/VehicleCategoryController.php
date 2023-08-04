@@ -2,12 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+
+use App\Interfaces\VehicleCategoryRepositoryInterface;
+
 use App\Models\VehicleCategory;
 use App\Http\Requests\StoreVehicleCategoryRequest;
 use App\Http\Requests\UpdateVehicleCategoryRequest;
+use Whoops\Run;
 
 class VehicleCategoryController extends Controller
 {
+    private VehicleCategoryRepositoryInterface $vehicleCategoryRepository;
+
+    public function __construct(VehicleCategoryRepositoryInterface $vehicleCategoryRepository)
+    {
+        $this->vehicleCategoryRepository = $vehicleCategoryRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,18 +28,10 @@ class VehicleCategoryController extends Controller
      */
     public function index()
     {
-        //
+
+        return response()->json(['data' => $this->vehicleCategoryRepository->allVehicleCategories()], 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -36,7 +41,8 @@ class VehicleCategoryController extends Controller
      */
     public function store(StoreVehicleCategoryRequest $request)
     {
-        //
+        $payload = $request->all();
+        return response()->json(['data' => $this->vehicleCategoryRepository->createVehicleCategory($payload)], Response::HTTP_CREATED);
     }
 
     /**
@@ -45,21 +51,13 @@ class VehicleCategoryController extends Controller
      * @param  \App\Models\VehicleCategory  $vehicleCategory
      * @return \Illuminate\Http\Response
      */
-    public function show(VehicleCategory $vehicleCategory)
+    public function show(Request $request)
     {
-        //
+        $payload = $request->only(['id']);
+        return response()->json(['data' => $this->vehicleCategoryRepository->showVehicleCategory($payload)], 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\VehicleCategory  $vehicleCategory
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(VehicleCategory $vehicleCategory)
-    {
-        //
-    }
+
 
     /**
      * Update the specified resource in storage.
@@ -68,9 +66,11 @@ class VehicleCategoryController extends Controller
      * @param  \App\Models\VehicleCategory  $vehicleCategory
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateVehicleCategoryRequest $request, VehicleCategory $vehicleCategory)
+    public function update(UpdateVehicleCategoryRequest $request)
     {
-        //
+        $payload = $request->all();
+        $id = $payload['id'];
+        return response()->json(['data' => $this->vehicleCategoryRepository->updateVehicleCategory($payload, $id)], 200);
     }
 
     /**
@@ -79,8 +79,9 @@ class VehicleCategoryController extends Controller
      * @param  \App\Models\VehicleCategory  $vehicleCategory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(VehicleCategory $vehicleCategory)
+    public function destroy(UpdateVehicleCategoryRequest $request)
     {
-        //
+        $id = $request->only(['id']);
+        return response()->json(['data' => $this->vehicleCategoryRepository->deleteVehicleCategory($id)], 200);
     }
 }

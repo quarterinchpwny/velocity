@@ -6,7 +6,7 @@ interface VehicleCategoryRepositoryInterface
 {
     public function allVehicleCategories();
     public function createVehicleCategory(array $data);
-    public function updateVehicleCategory(array $data, $code);
-    public function deleteVehicleCategory($code);
-    public function showVehicleCategory($code);
+    public function updateVehicleCategory(array $data, $id);
+    public function deleteVehicleCategory($id);
+    public function showVehicleCategory($id);
 }

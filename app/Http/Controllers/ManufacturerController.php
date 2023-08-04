@@ -2,12 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use App\Interfaces\ManufacturerRepositoryInterface;
+
 use App\Models\Manufacturer;
 use App\Http\Requests\StoreManufacturerRequest;
 use App\Http\Requests\UpdateManufacturerRequest;
 
 class ManufacturerController extends Controller
 {
+    private ManufacturerRepositoryInterface $manufacturerRepository;
+
+    public function __construct(ManufacturerRepositoryInterface $manufacturerRepository)
+    {
+        $this->manufacturerRepository = $manufacturerRepository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,18 +25,10 @@ class ManufacturerController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(['data' => $this->manufacturerRepository->allManufacturers()], 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -36,8 +38,10 @@ class ManufacturerController extends Controller
      */
     public function store(StoreManufacturerRequest $request)
     {
-        //
+        $payload = $request->all();
+        return response()->json(['data' => $this->manufacturerRepository->createManufacturer($payload)], Response::HTTP_CREATED);
     }
+
 
     /**
      * Display the specified resource.
@@ -45,22 +49,11 @@ class ManufacturerController extends Controller
      * @param  \App\Models\Manufacturer  $manufacturer
      * @return \Illuminate\Http\Response
      */
-    public function show(Manufacturer $manufacturer)
+    public function show(Request $request)
     {
-        //
+        $payload = $request->only(['id']);
+        return response()->json(['data' => $this->manufacturerRepository->showManufacturer($payload)], 200);
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Manufacturer  $manufacturer
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Manufacturer $manufacturer)
-    {
-        //
-    }
-
     /**
      * Update the specified resource in storage.
      *
@@ -68,9 +61,11 @@ class ManufacturerController extends Controller
      * @param  \App\Models\Manufacturer  $manufacturer
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateManufacturerRequest $request, Manufacturer $manufacturer)
+    public function update(UpdateManufacturerRequest $request)
     {
-        //
+        $payload = $request->all();
+        $id = $payload['id'];
+        return response()->json(['data' => $this->manufacturerRepository->updateManufacturer($payload, $id)], 200);
     }
 
     /**
@@ -79,8 +74,9 @@ class ManufacturerController extends Controller
      * @param  \App\Models\Manufacturer  $manufacturer
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Manufacturer $manufacturer)
+    public function destroy(Request $request)
     {
-        //
+        $id = $request->only(['id']);
+        return response()->json(['data' => $this->manufacturerRepository->deleteManufacturer($id)], 200);
     }
 }

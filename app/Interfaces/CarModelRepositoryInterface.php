@@ -6,7 +6,7 @@ interface CarModelRepositoryInterface
 {
     public function allCarModels();
     public function createCarModel(array $data);
-    public function updateCarModel(array $data, $code);
-    public function deleteCarModel($code);
-    public function showCarModel($code);
+    public function updateCarModel(array $data, $id);
+    public function deleteCarModel($id);
+    public function showCarModel($id);
 }

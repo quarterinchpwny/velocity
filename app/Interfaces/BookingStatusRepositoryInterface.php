@@ -6,7 +6,7 @@ interface BookingStatusRepositoryInterface
 {
     public function allBookingStatuses();
     public function createBookingStatus(array $data);
-    public function updateBookingStatus(array $data, $code);
-    public function deleteBookingStatus($code);
-    public function showBookingStatus($code);
+    public function updateBookingStatus(array $data, $id);
+    public function deleteBookingStatus($id);
+    public function showBookingStatus($id);
 }

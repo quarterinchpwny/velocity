@@ -2,12 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Interfaces\CarModelRepositoryInterface;
+
+use Illuminate\Http\Response;
+use Illuminate\Http\Request;
 use App\Models\CarModel;
 use App\Http\Requests\StoreCarModelRequest;
 use App\Http\Requests\UpdateCarModelRequest;
 
 class CarModelController extends Controller
 {
+
+    private CarModelRepositoryInterface $carModelRepository;
+
+    public function __construct(CarModelRepositoryInterface $carModelRepository)
+    {
+        $this->carModelRepository = $carModelRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,18 +27,11 @@ class CarModelController extends Controller
      */
     public function index()
     {
-        //
+
+        return response()->json(['data' => $this->carModelRepository->allCarModels()], 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -36,7 +41,8 @@ class CarModelController extends Controller
      */
     public function store(StoreCarModelRequest $request)
     {
-        //
+        $payload = $request->all();
+        return response()->json(['data' => $this->carModelRepository->createCarModel($payload)], Response::HTTP_CREATED);
     }
 
     /**
@@ -45,21 +51,13 @@ class CarModelController extends Controller
      * @param  \App\Models\CarModel  $carModel
      * @return \Illuminate\Http\Response
      */
-    public function show(CarModel $carModel)
+    public function show(Request $request)
     {
-        //
+        $payload = $request->only(['id']);
+        return response()->json(['data' => $this->carModelRepository->showCarModel($payload)], 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\CarModel  $carModel
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(CarModel $carModel)
-    {
-        //
-    }
+
 
     /**
      * Update the specified resource in storage.
@@ -68,9 +66,11 @@ class CarModelController extends Controller
      * @param  \App\Models\CarModel  $carModel
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCarModelRequest $request, CarModel $carModel)
+    public function update(UpdateCarModelRequest $request)
     {
-        //
+        $payload = $request->all();
+        $id = $payload['id'];
+        return response()->json(['data' => $this->carModelRepository->updateCarModel($payload, $id)], 200);
     }
 
     /**
@@ -79,8 +79,9 @@ class CarModelController extends Controller
      * @param  \App\Models\CarModel  $carModel
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CarModel $carModel)
+    public function destroy(Request $request)
     {
-        //
+        $payload = $request->only(['id']);
+        return response()->json(['data' => $this->carModelRepository->deleteCarModel($payload)], 200);
     }
 }
