@@ -15,7 +15,7 @@ class CreateCarModelsTable extends Migration
     {
         Schema::create('car_models', function (Blueprint $table) {
             $table->id();
-            $table->char('code');
+            $table->char('code')->unique();
             $table->string('name');
             $table->integer('daily_hire_rate');
             $table->timestamps();

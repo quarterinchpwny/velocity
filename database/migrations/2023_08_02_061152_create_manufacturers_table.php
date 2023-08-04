@@ -15,7 +15,7 @@ class CreateManufacturersTable extends Migration
     {
         Schema::create('manufacturers', function (Blueprint $table) {
             $table->id();
-            $table->char('code');
+            $table->char('code')->unique();
             $table->string('manufacturer_name');
             $table->string('manufacturer_details');
             $table->timestamps();

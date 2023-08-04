@@ -2,33 +2,33 @@
 
 namespace App\Repositories;
 
-use App\Interfaces\CarModelRepositoryInterface;
-use App\Models\CarModel;
+use App\Interfaces\UserRepositoryInterface;
+use App\Models\User;
 
-class CarModelRepository implements CarModelRepositoryInterface
+class UserRepository implements UserRepositoryInterface
 {
-    public function allCarModels()
+    public function allUsers()
     {
-        return CarModel::all();
+        return User::all();
     }
-    public function createCarModel(array $data)
+    public function createUser(array $data)
     {
-        return CarModel::create($data);
+        return User::create($data);
     }
-    public function updateCarModel(array $data, $id)
+    public function updateUser(array $data, $id)
     {
-        $carModel = $this->showCarModel($id);
-        $carModel->update($data);
-        return $carModel;
+        $user = $this->showUser($id);
+        $user->update($data);
+        return $user;
     }
-    public function deleteCarModel($id)
+    public function deleteUser($id)
     {
-        $carModel = $this->showCarModel($id);
-        $carModel->delete();
-        return $carModel;
+        $user = $this->showUser($id);
+        $user->delete();
+        return $user;
     }
-    public function showCarModel($id)
+    public function showUser($id)
     {
-        return CarModel::findOrFail($id);
+        return User::findOrFail($id);
     }
 }

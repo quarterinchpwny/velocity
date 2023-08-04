@@ -15,7 +15,7 @@ class CreateBookingStatusesTable extends Migration
     {
         Schema::create('booking_statuses', function (Blueprint $table) {
             $table->id();
-            $table->char('code');
+            $table->char('code')->unique();
             $table->string('description');
             $table->timestamps();
         });
