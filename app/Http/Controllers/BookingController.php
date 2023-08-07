@@ -25,7 +25,7 @@ class BookingController extends Controller
      */
     public function index()
     {
-        return response()->json(['data' => $this->bookingRepository->allBookings()], 200);
+        return $this->successResponse($this->bookingRepository->allBookings(), 'All Bookings', Response::HTTP_OK);
     }
 
     /**
@@ -36,8 +36,8 @@ class BookingController extends Controller
      */
     public function store(StoreBookingRequest $request)
     {
-        $payload = $request->all();;
-        return response()->json(['data' => $this->bookingRepository->createBooking($payload)], Response::HTTP_CREATED);
+        $payload = $request->all();
+        return $this->successResponse($this->bookingRepository->createBooking($payload), 'Booking Created', Response::HTTP_CREATED);
     }
 
     /**
@@ -48,8 +48,8 @@ class BookingController extends Controller
      */
     public function show(Request $request)
     {
-        $payload = $request->ony(['id']);
-        return response()->json(['data' => $this->bookingRepository->showBooking($payload)], 200);
+        $id = $request->route('booking');
+        return $this->successResponse($this->bookingRepository->showBooking($id), 'Booking Details', Response::HTTP_OK);
     }
 
 
@@ -64,8 +64,8 @@ class BookingController extends Controller
 
     {
         $payload = $request->all();
-        $id = $payload(['id']);
-        return response()->json(['data' => $this->bookingRepository->updateBooking($payload, $id)], 200);
+        $id = $request->route('booking');
+        return $this->successResponse($this->bookingRepository->updateBooking($payload, $id), 'Booking Updated', Response::HTTP_OK);
     }
 
     /**
@@ -76,8 +76,7 @@ class BookingController extends Controller
      */
     public function destroy(Request $request)
     {
-        $id = $request->only(['id']);
-        $this->bookingRepository->deleteBooking($id);
-        return response()->json(['message' => 'Delete success', Response::HTTP_NO_CONTENT]);
+        $id = $request->route('booking');
+        return $this->successResponse($this->bookingRepository->deleteBooking($id), 'Booking Deleted', Response::HTTP_OK);
     }
 }

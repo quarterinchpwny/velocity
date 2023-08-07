@@ -25,7 +25,7 @@ class ManufacturerController extends Controller
      */
     public function index()
     {
-        return response()->json(['data' => $this->manufacturerRepository->allManufacturers()], 200);
+        return $this->successResponse($this->manufacturerRepository->allManufacturers(), 'All Manufacturers', Response::HTTP_OK);
     }
 
 
@@ -39,7 +39,8 @@ class ManufacturerController extends Controller
     public function store(StoreManufacturerRequest $request)
     {
         $payload = $request->all();
-        return response()->json(['data' => $this->manufacturerRepository->createManufacturer($payload)], Response::HTTP_CREATED);
+        $id = $request->route('manufacturer');
+        return $this->successResponse($this->manufacturerRepository->createManufacturer($payload, $id), 'Manufacturer Created', Response::HTTP_CREATED);
     }
 
 
@@ -51,8 +52,8 @@ class ManufacturerController extends Controller
      */
     public function show(Request $request)
     {
-        $payload = $request->only(['id']);
-        return response()->json(['data' => $this->manufacturerRepository->showManufacturer($payload)], 200);
+        $id = $request->route('manufacturer');
+        return $this->successResponse($this->manufacturerRepository->showManufacturer($id), 'Manufacturer Details', Response::HTTP_OK);
     }
     /**
      * Update the specified resource in storage.

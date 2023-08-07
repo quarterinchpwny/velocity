@@ -27,8 +27,7 @@ class CarModelController extends Controller
      */
     public function index()
     {
-
-        return response()->json(['data' => $this->carModelRepository->allCarModels()], 200);
+        return $this->successResponse($this->carModelRepository->allCarModels(), 'All Car Models', Response::HTTP_OK);
     }
 
 
@@ -42,7 +41,8 @@ class CarModelController extends Controller
     public function store(StoreCarModelRequest $request)
     {
         $payload = $request->all();
-        return response()->json(['data' => $this->carModelRepository->createCarModel($payload)], Response::HTTP_CREATED);
+        $id = $request->route('car_model');
+        return $this->successResponse($this->carModelRepository->createCarModel($payload, $id), 'Car Model Created', Response::HTTP_CREATED);
     }
 
     /**
@@ -53,8 +53,8 @@ class CarModelController extends Controller
      */
     public function show(Request $request)
     {
-        $payload = $request->only(['id']);
-        return response()->json(['data' => $this->carModelRepository->showCarModel($payload)], 200);
+        $id = $request->route('car_model');
+        return $this->successResponse($this->carModelRepository->showCarModel($id), 'Car Model Details', Response::HTTP_OK);
     }
 
 
@@ -69,8 +69,8 @@ class CarModelController extends Controller
     public function update(UpdateCarModelRequest $request)
     {
         $payload = $request->all();
-        $id = $payload['id'];
-        return response()->json(['data' => $this->carModelRepository->updateCarModel($payload, $id)], 200);
+        $id = $request->route('car_model');
+        return $this->successResponse($this->carModelRepository->updateCarModel($payload, $id), 'Car Model Updated', Response::HTTP_OK);
     }
 
     /**
@@ -81,7 +81,8 @@ class CarModelController extends Controller
      */
     public function destroy(Request $request)
     {
-        $payload = $request->only(['id']);
-        return response()->json(['data' => $this->carModelRepository->deleteCarModel($payload)], 200);
+        $payload = $request->$request->route('car_model');
+
+        return $this->successResponse($this->carModelRepository->deleteCarModel($payload), 'Car Model Deleted', Response::HTTP_OK);
     }
 }

@@ -29,7 +29,7 @@ class VehicleCategoryController extends Controller
     public function index()
     {
 
-        return response()->json(['data' => $this->vehicleCategoryRepository->allVehicleCategories()], 200);
+        return $this->successResponse($this->vehicleCategoryRepository->allVehicleCategories(), 'All Vehicle Categories', Response::HTTP_OK);
     }
 
 
@@ -42,7 +42,8 @@ class VehicleCategoryController extends Controller
     public function store(StoreVehicleCategoryRequest $request)
     {
         $payload = $request->all();
-        return response()->json(['data' => $this->vehicleCategoryRepository->createVehicleCategory($payload)], Response::HTTP_CREATED);
+        $id = $request->route('vehicle_category');
+        return $this->successResponse($this->vehicleCategoryRepository->createVehicleCategory($payload, $id), 'Vehicle Category Created', Response::HTTP_CREATED);
     }
 
     /**
@@ -53,8 +54,8 @@ class VehicleCategoryController extends Controller
      */
     public function show(Request $request)
     {
-        $payload = $request->only(['id']);
-        return response()->json(['data' => $this->vehicleCategoryRepository->showVehicleCategory($payload)], 200);
+        $id = $request->route('vehicle_category');
+        return $this->successResponse($this->vehicleCategoryRepository->showVehicleCategory($id), 'Vehicle Category Details', Response::HTTP_OK);
     }
 
 
@@ -69,8 +70,8 @@ class VehicleCategoryController extends Controller
     public function update(UpdateVehicleCategoryRequest $request)
     {
         $payload = $request->all();
-        $id = $payload['id'];
-        return response()->json(['data' => $this->vehicleCategoryRepository->updateVehicleCategory($payload, $id)], 200);
+        $id = $request->route('vehicle_category');
+        return $this->successResponse($this->vehicleCategoryRepository->updateVehicleCategory($payload, $id), 'Vehicle Category Updated', Response::HTTP_OK);
     }
 
     /**
@@ -81,7 +82,7 @@ class VehicleCategoryController extends Controller
      */
     public function destroy(UpdateVehicleCategoryRequest $request)
     {
-        $id = $request->only(['id']);
-        return response()->json(['data' => $this->vehicleCategoryRepository->deleteVehicleCategory($id)], 200);
+        $id = $request->route('vehicle_category');
+        return $this->successResponse($this->vehicleCategoryRepository->deleteVehicleCategory($id), 'Vehicle Category Deleted', Response::HTTP_OK);
     }
 }

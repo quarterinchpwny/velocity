@@ -24,7 +24,8 @@ class BookingStatusController extends Controller
      */
     public function index()
     {
-        return response()->json(['data' => $this->bookingStatusRepository->allBookingStatuses()]);
+
+        return $this->successResponse($this->bookingStatusRepository->allBookingStatuses(), 'All Booking Statuses', Response::HTTP_OK);
     }
 
     /**
@@ -36,7 +37,9 @@ class BookingStatusController extends Controller
     public function store(StoreBookingStatusRequest $request)
     {
         $payload = $request->all();
-        return response()->json(['data' => $this->bookingStatusRepository->createBookingStatus($payload)], Response::HTTP_CREATED);
+        $id = $request->route('booking_status');
+
+        return $this->successResponse($this->bookingStatusRepository->createBookingStatus($payload, $id), 'Booking Status Created', Response::HTTP_CREATED);
     }
 
     /**
@@ -47,8 +50,8 @@ class BookingStatusController extends Controller
      */
     public function show(Request $request)
     {
-        $payload = $request->only(['id']);
-        return response()->json(['data' => $this->bookingStatusRepository->showBookingStatus($payload)]);
+        $id = $request->route('booking_status');
+        return $this->successResponse($this->bookingStatusRepository->showBookingStatus($id), 'Booking Status Details', Response::HTTP_OK);
     }
 
     /**
@@ -61,8 +64,8 @@ class BookingStatusController extends Controller
     public function update(UpdateBookingStatusRequest $request)
     {
         $payload = $request->all();
-        $id = $payload['id'];
-        return response()->json(['data' => $this->bookingStatusRepository->updateBookingStatus($payload, $id)]);
+        $id = $request->route('booking_status');
+        return $this->successResponse($this->bookingStatusRepository->updateBookingStatus($payload, $id), 'Booking Status Updated', Response::HTTP_OK);
     }
 
     /**
@@ -73,8 +76,7 @@ class BookingStatusController extends Controller
      */
     public function destroy(Request $request)
     {
-        $id = $request->only(['id']);
-        $this->bookingStatusRepository->deleteBookingStatus($id);
-        return response()->json(['data' => 'Booking Status Deleted Successfully']);
+        $id = $request->route('booking_status');
+        return $this->successResponse($this->bookingStatusRepository->deleteBookingStatus($id), 'Booking Status Deleted', Response::HTTP_OK);
     }
 }

@@ -27,7 +27,7 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        return response()->json(['data' => $this->vehicleRepository->allVehicles()], 200);
+        return $this->sucessResponse($this->vehicleRepository->allVehicles(), 'All Vehicles', Response::HTTP_OK);
     }
 
     /**
@@ -39,7 +39,8 @@ class VehicleController extends Controller
     public function store(StoreVehicleRequest $request)
     {
         $payload = $request->all();
-        return response()->json(['data' => $this->vehicleRepository->createVehicle($payload)], Response::HTTP_CREATED);
+        $id = $request->route('vehicle');
+        return $this->successResponse($this->vehicleRepository->createVehicle($payload, $id), 'Vehicle Created', Response::HTTP_CREATED);
     }
 
     /**
@@ -50,8 +51,8 @@ class VehicleController extends Controller
      */
     public function show(Request $request)
     {
-        $payload = $request->only(['id']);
-        return response()->json(['data' => $this->vehicleRepository->showVehicle($payload)], 200);
+        $id = $request->route('vehicle');
+        return $this->successResponse($this->vehicleRepository->showVehicle($id), 'Vehicle Details', Response::HTTP_OK);
     }
 
     /**
@@ -64,8 +65,8 @@ class VehicleController extends Controller
     public function update(UpdateVehicleRequest $request)
     {
         $payload = $request->all();
-        $id = $payload['id'];
-        return response()->json(['data' => $this->vehicleRepository->updateVehicle($payload, $id)], 200);
+        $id = $request->route('vehicle');
+        return $this->successResponse($this->vehicleRepository->updateVehicle($payload, $id), 'Vehicle Updated', Response::HTTP_OK);
     }
 
     /**
@@ -76,7 +77,7 @@ class VehicleController extends Controller
      */
     public function destroy(Request $request)
     {
-        $payload = $request->only(['id']);
-        return response()->json(['data' => $this->vehicleRepository->deleteVehicle($payload)], 200);
+        $id = $request->route('vehicle');
+        return $this->successResponse($this->vehicleRepository->deleteVehicle($id), 'Vehicle Deleted', Response::HTTP_OK);
     }
 }
