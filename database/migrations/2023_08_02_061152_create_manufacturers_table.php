@@ -17,7 +17,7 @@ class CreateManufacturersTable extends Migration
             $table->id();
             $table->char('code')->unique();
             $table->string('manufacturer_name');
-            $table->string('manufacturer_details');
+            $table->string('manufacturer_details')->nullable();
             $table->timestamps();
         });
     }

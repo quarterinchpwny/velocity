@@ -16,17 +16,16 @@ class CreateVehiclesTable extends Migration
         Schema::create('vehicles', function (Blueprint $table) {
             $table->id();
             $table->char('code')->unique();
-            $table->char('vehicle_model');
-            $table->char('vehicle_name');
-            $table->char('vehicle_details');
+            $table->char('vehicle_name')->nullable();
+            $table->char('vehicle_details')->nullable();
             $table->char('manufacturer_code');
             $table->foreign('manufacturer_code')->references('code')->on('manufacturers');
             $table->char('category_code');
             $table->foreign('category_code')->references('code')->on('vehicle_categories');
             $table->char('model_code');
             $table->foreign('model_code')->references('code')->on('car_models');
-            $table->integer('daily_hire_rate');
-            $table->integer('mileage');
+            $table->integer('daily_hire_rate')->nullable();
+            $table->integer('mileage')->nullable();
             $table->timestamps();
         });
     }

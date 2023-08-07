@@ -16,7 +16,7 @@ class CreateVehicleCategoriesTable extends Migration
         Schema::create('vehicle_categories', function (Blueprint $table) {
             $table->id();
             $table->char('code')->unique();
-            $table->char('description');
+            $table->char('description')->nullable();
             $table->timestamps();
         });
     }

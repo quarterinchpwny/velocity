@@ -17,7 +17,7 @@ class CreateCarModelsTable extends Migration
             $table->id();
             $table->char('code')->unique();
             $table->string('name');
-            $table->integer('daily_hire_rate');
+            $table->integer('daily_hire_rate')->nullable();
             $table->timestamps();
         });
     }

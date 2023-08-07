@@ -27,7 +27,7 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        return $this->sucessResponse($this->vehicleRepository->allVehicles(), 'All Vehicles', Response::HTTP_OK);
+        return $this->successResponse($this->vehicleRepository->allVehicles(), 'All Vehicles', Response::HTTP_OK);
     }
 
     /**

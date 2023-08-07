@@ -26,7 +26,7 @@ class StoreCarModelRequest extends FormRequest
         return [
             'code' => 'char | required',
             'name' => 'string | required',
-            'daily_hire_rate' => 'numeric | required',
+            'daily_hire_rate' => 'numeric | nullable',
         ];
     }
 }

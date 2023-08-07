@@ -7,7 +7,7 @@ use Illuminate\Http\Response;
 trait HttpResponses
 {
 
-    public function success($data, $message = null, $code = Response::HTTP_OK)
+    public function successResponse($data, $message = null, $code = Response::HTTP_OK)
     {
         return response()->json([
             'code' => $code,
@@ -17,7 +17,7 @@ trait HttpResponses
 
         ], $code);
     }
-    public function error($data, $message = null, $code = Response::HTTP_BAD_REQUEST)
+    public function errorResponse($data, $message = null, $code = Response::HTTP_BAD_REQUEST)
     {
         return response()->json([
             'code' => $code,

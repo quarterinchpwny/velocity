@@ -29,10 +29,10 @@ class UpdateVehicleRequest extends FormRequest
             'manufacturer_code' => 'string | required',
             'category_code' => 'string | required',
             'model_code' => 'string | required',
-            'vehicle_name' => 'string | required',
-            'vehicle_details' => 'string | nullable',
-            'daily_hire_rate' => 'numeric | required',
-            'monthly_hire_rate' => 'numeric | required',
+            'vehicle_name' => 'string | nullable',
+            'vehicle_details' => 'string| nullable ',
+            'daily_hire_rate' => 'numeric| nullable ',
+            'monthly_hire_rate' => 'numeric | nullable',
             'mileage' => 'numeric | nullable',
         ];
     }
