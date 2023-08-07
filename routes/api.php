@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\VehicleController;
-use App\Http\Controllers\CarModelController;
+use App\Http\Controllers\VehicleModelController;
 use App\Http\Controllers\ManufacturerController;
 use App\Http\Controllers\BookingStatusController;
 use App\Http\Controllers\VehicleCategoryController;
@@ -36,7 +36,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::resources([
         'booking' => BookingController::class,
         'booking-status' => BookingStatusController::class,
-        'car-model' => CarModelController::class,
+        'car-model' => VehicleModelController::class,
         'manufacturer' => ManufacturerController::class,
         'user' => UserController::class,
         'vehicle' => VehicleController::class,

@@ -27,7 +27,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return $this->success($this->userRepository->allUsers(), 'Users retrieved successfully', Response::HTTP_OK);
+        return $this->successResponse($this->userRepository->allUsers(), 'Users retrieved successfully', Response::HTTP_OK);
     }
 
     /**
@@ -39,7 +39,7 @@ class UserController extends Controller
     public function show(UpdateUserRequest $request)
     {
         $payload = $request->route('user');
-        return $this->success($this->userRepository->showUser($payload), 'User retrieved successfully', Response::HTTP_OK);
+        return $this->successResponse($this->userRepository->showUser($payload), 'User retrieved successfully', Response::HTTP_OK);
     }
 
 
@@ -55,7 +55,7 @@ class UserController extends Controller
 
         $payload = $request->all();
         $id =  $request->route('user');
-        return $this->success($this->userRepository->updateUser($payload, $id), 'User updated successfully', Response::HTTP_OK);
+        return $this->successResponse($this->userRepository->updateUser($payload, $id), 'User updated successfully', Response::HTTP_OK);
     }
 
     /**
@@ -68,6 +68,6 @@ class UserController extends Controller
     {
 
         $payload = $request->route('user');
-        return $this->success($this->userRepository->deleteUser($payload), 'User deleted successfully', Response::HTTP_OK);
+        return $this->successResponse($this->userRepository->deleteUser($payload), 'User deleted successfully', Response::HTTP_OK);
     }
 }

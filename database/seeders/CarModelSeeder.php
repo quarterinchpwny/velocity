@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\CarModel;
+use App\Models\VehicleModel;
 use Illuminate\Database\Seeder;
 
-class CarModelSeeder extends Seeder
+class VehicleModelSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +14,6 @@ class CarModelSeeder extends Seeder
      */
     public function run()
     {
-        CarModel::factory(10)->create();
+        VehicleModel::factory(10)->create();
     }
 }

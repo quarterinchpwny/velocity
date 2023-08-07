@@ -23,7 +23,7 @@ class CreateVehiclesTable extends Migration
             $table->char('category_code');
             $table->foreign('category_code')->references('code')->on('vehicle_categories');
             $table->char('model_code');
-            $table->foreign('model_code')->references('code')->on('car_models');
+            $table->foreign('model_code')->references('code')->on('vehicle_models');
             $table->integer('daily_hire_rate')->nullable();
             $table->integer('mileage')->nullable();
             $table->timestamps();

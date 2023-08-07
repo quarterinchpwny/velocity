@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             BookingStatusSeeder::class,
-            CarModelSeeder::class,
+            VehicleModelSeeder::class,
             VehicleCategorySeeder::class,
             ManufacturerSeeder::class,
             VehicleCategorySeeder::class,
