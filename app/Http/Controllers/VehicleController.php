@@ -38,9 +38,13 @@ class VehicleController extends Controller
      */
     public function store(StoreVehicleRequest $request)
     {
-        $payload = $request->all();
-        $id = $request->route('vehicle');
-        return $this->successResponse($this->vehicleRepository->createVehicle($payload, $id), 'Vehicle Created', Response::HTTP_CREATED);
+        try {
+            $payload = $request->all();
+            $id = $request->route('vehicle');
+            return $this->successResponse($this->vehicleRepository->createVehicle($payload, $id), 'Vehicle Created', Response::HTTP_CREATED);
+        } catch (\Exception $e) {
+            return $this->errorResponse('Vehicle not created ', Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -51,8 +55,13 @@ class VehicleController extends Controller
      */
     public function show(Request $request)
     {
-        $id = $request->route('vehicle');
-        return $this->successResponse($this->vehicleRepository->showVehicle($id), 'Vehicle Details', Response::HTTP_OK);
+        try {
+            $id = $request->route('vehicle');
+
+            return $this->successResponse($this->vehicleRepository->showVehicle($id), 'Vehicle Details', Response::HTTP_OK);
+        } catch (\Exception $e) {
+            return $this->errorResponse('Vehicle not found', Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -64,9 +73,13 @@ class VehicleController extends Controller
      */
     public function update(UpdateVehicleRequest $request)
     {
-        $payload = $request->all();
-        $id = $request->route('vehicle');
-        return $this->successResponse($this->vehicleRepository->updateVehicle($payload, $id), 'Vehicle Updated', Response::HTTP_OK);
+        try {
+            $payload = $request->all();
+            $id = $request->route('vehicle');
+            return $this->successResponse($this->vehicleRepository->updateVehicle($payload, $id), 'Vehicle Updated', Response::HTTP_OK);
+        } catch (\Exception $e) {
+            return $this->errorResponse('Vehicle not updated', Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -77,7 +90,11 @@ class VehicleController extends Controller
      */
     public function destroy(Request $request)
     {
-        $id = $request->route('vehicle');
-        return $this->successResponse($this->vehicleRepository->deleteVehicle($id), 'Vehicle Deleted', Response::HTTP_OK);
+        try {
+            $id = $request->route('vehicle');
+            return $this->successResponse($this->vehicleRepository->deleteVehicle($id), 'Vehicle Deleted', Response::HTTP_OK);
+        } catch (\Exception $e) {
+            return $this->errorResponse('Vehicle not deleted', Response::HTTP_NOT_FOUND);
+        }
     }
 }

@@ -10,7 +10,7 @@ class VehicleRepository implements VehicleRepositoryInterface
 
     public function allVehicles()
     {
-        return Vehicle::all();
+        return Vehicle::with(['category', 'model', 'manufacturer'])->get();
     }
 
     public function createVehicle(array $data)
@@ -34,6 +34,6 @@ class VehicleRepository implements VehicleRepositoryInterface
 
     public function showVehicle($id)
     {
-        return Vehicle::findOrFail($id);
+        return Vehicle::with(['category', 'model', 'manufacturer'])->findOrFail($id);
     }
 }
