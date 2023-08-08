@@ -9,7 +9,9 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class Vehicle extends Model
 {
     use HasFactory;
+
     protected $guarded = [];
+
     protected $hidden = [
         'category_code',
         'manufacturer_code',

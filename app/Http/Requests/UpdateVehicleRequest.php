@@ -13,7 +13,7 @@ class UpdateVehicleRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,10 +25,10 @@ class UpdateVehicleRequest extends FormRequest
     {
         return [
             'code' => 'string | required',
-            'vehicle_code' => 'string | required',
-            'manufacturer_code' => 'string | required',
-            'category_code' => 'string | required',
-            'model_code' => 'string | required',
+            'vehicle_code' => 'string ',
+            'manufacturer_code' => 'string ',
+            'category_code' => 'string ',
+            'model_code' => 'string ',
             'vehicle_name' => 'string | nullable',
             'vehicle_details' => 'string| nullable ',
             'daily_hire_rate' => 'numeric| nullable ',
