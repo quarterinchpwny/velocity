@@ -17,7 +17,7 @@ trait HttpResponses
 
         ], $code);
     }
-    public function errorResponse($data, $message = null, $code = Response::HTTP_BAD_REQUEST)
+    public function errorResponse($data = null, $message = null, $code = Response::HTTP_BAD_REQUEST)
     {
         return response()->json([
             'code' => $code,

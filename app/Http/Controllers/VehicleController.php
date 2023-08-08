@@ -43,7 +43,7 @@ class VehicleController extends Controller
             $id = $request->route('vehicle');
             return $this->successResponse($this->vehicleRepository->createVehicle($payload, $id), 'Vehicle Created', Response::HTTP_CREATED);
         } catch (\Exception $e) {
-            return $this->errorResponse('Vehicle not created ', Response::HTTP_NOT_FOUND);
+            return $this->errorResponse(null, 'Vehicle not created ', Response::HTTP_NOT_FOUND);
         }
     }
 
@@ -60,7 +60,7 @@ class VehicleController extends Controller
 
             return $this->successResponse($this->vehicleRepository->showVehicle($id), 'Vehicle Details', Response::HTTP_OK);
         } catch (\Exception $e) {
-            return $this->errorResponse('Vehicle not found', Response::HTTP_NOT_FOUND);
+            return $this->errorResponse(null, 'Vehicle not found', Response::HTTP_NOT_FOUND);
         }
     }
 
@@ -78,7 +78,7 @@ class VehicleController extends Controller
             $id = $request->route('vehicle');
             return $this->successResponse($this->vehicleRepository->updateVehicle($payload, $id), 'Vehicle Updated', Response::HTTP_OK);
         } catch (\Exception $e) {
-            return $this->errorResponse('Vehicle not updated', Response::HTTP_NOT_FOUND);
+            return $this->errorResponse(null, 'Vehicle not updated', Response::HTTP_NOT_FOUND);
         }
     }
 
@@ -94,7 +94,7 @@ class VehicleController extends Controller
             $id = $request->route('vehicle');
             return $this->successResponse($this->vehicleRepository->deleteVehicle($id), 'Vehicle Deleted', Response::HTTP_OK);
         } catch (\Exception $e) {
-            return $this->errorResponse('Vehicle not deleted', Response::HTTP_NOT_FOUND);
+            return $this->errorResponse(null, 'Vehicle not deleted', Response::HTTP_NOT_FOUND);
         }
     }
 }
