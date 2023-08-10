@@ -25,14 +25,18 @@ class AuthenticationController extends Controller
 
     public function login(LoginAuthenticationRequest $request)
     {
-        $credentials = $request->validated($request->only('email', 'password'));
-        if (!Auth::attempt($credentials)) {
-            return response()->json(['code' => 401, 'message' => 'Invalid credentials'], 401);
-        }
-        $user = User::where('email', $request->email)->firstOrFail();
+        try {
+            $credentials = $request->validated($request->only('email', 'password'));
+            if (!Auth::attempt($credentials)) {
+                return response()->json(['code' => 401, 'message' => 'Invalid credentials'], 401);
+            }
+            $user = User::where('email', $request->email)->firstOrFail();
 
-        $token = $request->user()->createToken('authToken')->plainTextToken;
-        return response()->json(['code' => 200, 'message' => 'Login success!', 'token' => $token, 'data' => $user], 200);
+            $token = $request->user()->createToken('authToken')->plainTextToken;
+            return response()->json(['code' => 200, 'message' => 'Login success!', 'token' => $token, 'data' => $user], 200);
+        } catch (\Exception $e) {
+            return response()->json(['code' => 500, 'message' => 'Internal Server Error'], 500);
+        }
     }
 
     public function logout(Request $request)
